@@ -1,7 +1,6 @@
 package de.ergo.propertyinsurance.model;
 
-public class BikeBody {
-
+public class PriceBody {
     private double price;
 
     public double getPrice() {
