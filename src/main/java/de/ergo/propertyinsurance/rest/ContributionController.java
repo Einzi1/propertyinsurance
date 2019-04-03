@@ -3,6 +3,7 @@ package de.ergo.propertyinsurance.rest;
 import de.ergo.propertyinsurance.business.CalculateContributionService;
 import de.ergo.propertyinsurance.model.PriceBody;
 import de.ergo.propertyinsurance.model.Contribution;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,18 +19,18 @@ public class ContributionController {
     }
 
     @PostMapping(path = "/bike/contribution", produces = "application/json", consumes = "application/json")
-    public Contribution getContributionBike(@RequestBody PriceBody priceBody) {
-        return calculateContributionService.calculateContributionBike(priceBody.getPrice());
+    public ResponseEntity<Contribution> getContributionBike(@RequestBody PriceBody priceBody) {
+        return ResponseEntity.ok(calculateContributionService.calculateContributionBike(priceBody.getPrice()));
     }
 
 
     @PostMapping(path = "/smartphone/contribution", produces = "application/json", consumes = "application/json")
-    public List<Contribution> getContributionSmartphone(@RequestBody PriceBody priceBody) {
-        return calculateContributionService.calculateContributionSmartphone(priceBody.getPrice());
+    public ResponseEntity<List<Contribution>> getContributionSmartphone(@RequestBody PriceBody priceBody) {
+        return ResponseEntity.ok(calculateContributionService.calculateContributionSmartphone(priceBody.getPrice()));
     }
 
     @PostMapping(path = "/laptop/contribution", produces = "application/json", consumes = "application/json")
-    public List<Contribution> getContributionaptop(@RequestBody PriceBody priceBody) {
-        return calculateContributionService.calculateContributionLaptop(priceBody.getPrice());
+    public ResponseEntity<List<Contribution>> getContributionLaptop(@RequestBody PriceBody priceBody) {
+        return ResponseEntity.ok(calculateContributionService.calculateContributionLaptop(priceBody.getPrice()));
     }
 }
