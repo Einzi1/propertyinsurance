@@ -6,6 +6,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class MailService {
 
@@ -24,7 +27,51 @@ public class MailService {
     }
 
     void sendFachbereichMessage(InsuranceEnquiry insuranceEnquiry) {
-        sendSimpleMessage("beitragsrechnerERGO@gmail.com", "Test Betreff", "Das ist eine Testnachricht");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate currentDate = LocalDate.now();
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("Hallo zusammen,\n\n")
+                .append("am ")
+                .append(dtf.format(currentDate))
+                .append(" haben wir einen Antrag für eine Geräteversicherung erhalten. Diese muss geprüft werden und nachfolgend soll der " +
+                        "Kunde informiert werden und ihm die Unterlagen zugeschickt werden.\n\n")
+                .append("Kundendaten:\n\n")
+                .append("Name: ")
+                .append(insuranceEnquiry.getLastName())
+                .append("\n")
+                .append("Vorname: ")
+                .append(insuranceEnquiry.getFirstName())
+                .append("\n")
+                .append("Geburtsdatum: ")
+                .append(dtf.format(insuranceEnquiry.getBirthDate()))
+                .append("\n")
+                .append("Adresse: ")
+                .append(insuranceEnquiry.getAddress())
+                .append("\n")
+                .append("PLZ: ")
+                .append(insuranceEnquiry.getPostalCode())
+                .append("\n")
+                .append("Ort: ")
+                .append(insuranceEnquiry.getCity())
+                .append("\n")
+                .append("E-Mail: ")
+                .append(insuranceEnquiry.getEmail())
+                .append("\n")
+                .append("Telefon: ")
+                .append(insuranceEnquiry.getPhoneNumber())
+                .append("\n\nGegenstandsdaten:\n\n")
+                .append("Gegenstand: ")
+                .append(insuranceEnquiry.getProperty())
+                .append("\n")
+                .append("Kaufpreis: ")
+                .append(insuranceEnquiry.getPrice())
+                .append("\n")
+                .append("gewünschte Laufzeit: ")
+                .append(insuranceEnquiry.getContractDuration())
+                .append(" Jahre");
+
+        sendSimpleMessage("beitragsrechnerERGO@gmail.com", "Antrag für Geräteversicherung", builder.toString());
     }
 
     void sendKundenMessage(InsuranceEnquiry insuranceEnquiry) {

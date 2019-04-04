@@ -1,5 +1,6 @@
 package de.ergo.propertyinsurance.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,6 +20,7 @@ public class InsuranceEnquiry {
     private String salutation;
     private String firstName;
     private String lastName;
+    @JsonFormat(pattern="dd.MM.yyyy")
     private LocalDate birthDate;
     private String address;
     private String postalCode;
