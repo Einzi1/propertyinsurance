@@ -19,10 +19,9 @@ public class ContributionController {
     }
 
     @PostMapping(path = "/bike/contribution", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Contribution> getContributionBike(@RequestBody PriceBody priceBody) {
+    public ResponseEntity<List<Contribution>> getContributionBike(@RequestBody PriceBody priceBody) {
         return ResponseEntity.ok(calculateContributionService.calculateContributionBike(priceBody.getPrice()));
     }
-
 
     @PostMapping(path = "/smartphone/contribution", produces = "application/json", consumes = "application/json")
     public ResponseEntity<List<Contribution>> getContributionSmartphone(@RequestBody PriceBody priceBody) {

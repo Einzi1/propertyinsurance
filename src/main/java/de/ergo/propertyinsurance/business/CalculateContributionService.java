@@ -8,6 +8,8 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.List.of;
+
 @Service
 public class CalculateContributionService {
 
@@ -41,12 +43,12 @@ public class CalculateContributionService {
     }
 
 
-    public Contribution calculateContributionBike(double price) {
+    public List<Contribution> calculateContributionBike(double price) {
         BigDecimal versicherungssumme = BigDecimal.valueOf(price * 0.9).setScale(2, RoundingMode.HALF_UP);
         BigDecimal jahresbeitragNetto = versicherungssumme.multiply(BigDecimal.valueOf(0.11055)).setScale(2, RoundingMode.HALF_UP);
         BigDecimal jahresbeitragBrutto = calculateJahresbeitragBrutto(jahresbeitragNetto);
 
-        return new Contribution(versicherungssumme, jahresbeitragBrutto, calculateMonatsbeitrag(jahresbeitragBrutto));
+        return of(new Contribution(versicherungssumme, jahresbeitragBrutto, calculateMonatsbeitrag(jahresbeitragBrutto)));
     }
 
     private BigDecimal calculateJahresbeitragBrutto(BigDecimal jahresbeitragNetto) {
